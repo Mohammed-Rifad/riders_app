@@ -56,7 +56,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="/logout">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
@@ -189,13 +189,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="dwu" aria-expanded="false" aria-controls="ui-basic">
+              <a class="nav-link"   href="/profit" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">View Profit</span>
                 
                 <i class="mdi mdi-crosshairs-gps menu-icon"></i>
@@ -214,24 +214,24 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/forms/basic_elements.html">
+              <a class="nav-link" href="">
                 <span class="menu-title">Stock</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/charts/chartjs.html">
-                <span class="menu-title">Charts</span>
+              <a class="nav-link" href='/logout'>
+                <span class="menu-title">Logout</span>
                 <i class="mdi mdi-chart-bar menu-icon"></i>
               </a>
             </li>
-            <li class="nav-item">
+            {% comment %} <li class="nav-item">
               <a class="nav-link" href="pages/tables/basic-table.html">
                 <span class="menu-title">Tables</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
-            </li>
-            <li class="nav-item">
+            </li> {% endcomment %}
+            {% comment %} <li class="nav-item">
               <a class="nav-link" data-bs-toggle="collapse" href="#general-pages" aria-expanded="false" aria-controls="general-pages">
                 <span class="menu-title">Sample Pages</span>
                 <i class="menu-arrow"></i>
@@ -246,8 +246,8 @@
                   <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
                 </ul>
               </div>
-            </li>
-            <li class="nav-item sidebar-actions">
+            </li> {% endcomment %}
+            {% comment %} <li class="nav-item sidebar-actions">
               <span class="nav-link">
                 <div class="border-bottom">
                   <h6 class="font-weight-normal mb-3">Projects</h6>
@@ -263,7 +263,7 @@
                   </ul>
                 </div>
               </span>
-            </li>
+            </li> {% endcomment %}
           </ul>
         </nav>
         <!-- partial -->

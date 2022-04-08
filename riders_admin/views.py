@@ -2,6 +2,7 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
+from .auth_gaurd import *
 from django.db.models import Sum
 from datetime import datetime
 # Create your views here.
@@ -24,11 +25,11 @@ def login(request):
             authenticated = False
     return render(request, 'login.html', {'authenticated': authenticated})
 
-
+@auth_admin
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-
+@auth_admin
 def add_expense(request):
     if request.method == 'POST':
         name = request.POST['n'].lower()
@@ -44,6 +45,7 @@ def add_expense(request):
         return JsonResponse({'status': status})
     return render(request, 'add_expense.html')
 
+@auth_admin
 def add_sales(request):
     if request.method=='POST':
         sname = request.POST['sname'].lower()
@@ -59,7 +61,7 @@ def add_sales(request):
         return JsonResponse({'status': status})
     return render(request,'add_sales.html')
 
-
+@auth_admin
 def view_expense(request):
     data_set = Expense.objects.all()
     total = 0
@@ -78,7 +80,7 @@ def view_expense(request):
             show_total = True
     return render(request, 'view_expenses.html', {'expenses': data_set, 'total': total,
                                                   'show_total': show_total})
-
+@auth_admin
 def view_sales(request):
     data_set = Sales.objects.all()
     profit = 0
@@ -103,8 +105,14 @@ def view_sales(request):
     return render(request, 'view_sales.html', {'expenses': data_set,  
                                                   'profit': profit,'show_total':show_total})
                                                 
-                                            
+@auth_admin                                          
 def Profit(request):
     data_set=Sales.objects .values( 'dt').annotate(sp=Sum('selling_price'),cp=Sum('cost_price')).order_by()
     print(data_set)
     return render(request,'profit.html',{'data_set':data_set})
+
+
+def logout(request):
+    del request.session['autherisation_id' ]
+    request.session.flush()
+    return redirect('login')
