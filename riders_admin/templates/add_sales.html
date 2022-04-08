@@ -1,0 +1,70 @@
+{% extends 'master.html' %}
+
+{% block content %}
+              
+                <table style="border-spacing: 10px;border-collapse: separate;margin-left: 10px;position: relative;top: 20px;">
+                    <tr>
+                        <td>Cost Price : </td>
+                        <td><input class="form-control" type="number" required min=1  placeholder="cost price" name="cp" id="cp"></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Sale : </td>
+                        <td><input class="form-control" type="text" placeholder="enter name" required name="sname" id="sname"></td>
+                    </tr>
+                    <tr>
+                        <td>Selling Price : </td>
+                        <td><input class="form-control" type="number" required min=1 placeholder="selling prie" min="1" name="sp" id="sp"></td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td><input class="form-control" type="date" required min=1    name="dt" id="dt"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+
+
+    <script>
+        $("#submit").click(function(){
+             
+            dt=$("#dt").val()
+            sname=$("#sname").val()
+            sp=$('#sp').val()
+            cp=$('#cp').val()
+            
+            $.ajaxSetup({
+            headers: {
+              "X-CSRFToken":'{{csrf_token}}'
+            }})
+
+            $.ajax({
+              url: 'add-sales',
+              type: 'POST',
+              data: {
+                dt: dt,
+                sname: sname,
+                sp: sp,
+                cp:cp
+              },
+            success:function(response){
+              var msg=document.getElementById('st')
+              
+              msg.setAttribute('style','display:block;margin-left: 20px;padding-left: 80px;width:100%')
+              msg.innerHTML=response.status
+              setTimeout(()=>{
+                msg.setAttribute('style','display:none')
+              },1500)
+              
+            }
+              
+              
+        })
+
+      });
+    </script>
+
+{% endblock %}

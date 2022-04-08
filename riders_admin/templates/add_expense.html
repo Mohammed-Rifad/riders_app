@@ -1,0 +1,67 @@
+{% extends 'master.html' %}
+
+{% block content %}
+
+          <table style="border-spacing: 10px;border-collapse: separate;margin-left: 10px;position: relative;top: 20px;">
+            <tr>
+              <td>Date : </td>
+              <td><input class="form-control" type="date" placeholder="select date" name="dt" id="dt"></td>
+            </tr>
+            <tr>
+              <td>Name : </td>
+              <td><input class="form-control" type="text" placeholder="enter name" name="n" id="n"></td>
+            </tr>
+            <tr>
+              <td>Amount : </td>
+              <td><input class="form-control" type="number" placeholder="enter date" min="1" name="amt" id="amt"></td>
+            </tr>
+            <tr>
+              <td>
+                <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+              </td>
+            </tr>
+          </table>
+          <div class="col-md-4 stretch-card grid-margin">
+            <div id="st" class="alert alert-danger alert-dismissible fade show"
+              style="width: 700px;height: 46px;display: none;">
+              <strong class="text-center" id="msg"></strong>
+
+            </div>
+
+
+            </form>
+{% endblock %}
+        
+  <script>
+    $("#submit").click(function () {
+      date = $("#dt").val()
+      name = $("#n").val()
+      amount = $('#amt').val()
+      $.ajaxSetup({
+        headers: {
+          "X-CSRFToken": '{{csrf_token}}'
+        }
+      })
+      $.ajax({
+        url: 'add-expense',
+        type: 'POST',
+        data: {
+          dt: date,
+          n: name,
+          amt: amount
+        },
+        success: function (response) {
+          var msg=document.getElementById('st')
+              msg.setAttribute('style','display:block')
+              msg.innerHTML=response.status
+              setTimeout(()=>{
+                msg.setAttribute('style','display:none')
+              },1200)
+
+        }
+      });
+    })
+  </script>
+</body>
+
+</html>
