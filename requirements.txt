@@ -1,5 +1,6 @@
 autopep8==1.6.0
 distlib==0.3.4
+django-mathfilters==1.0.0
 filelock==3.4.2
 platformdirs==2.4.1
 pycodestyle==2.8.0
