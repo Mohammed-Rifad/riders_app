@@ -58,7 +58,7 @@
           amt: amount
         },
         success: function (response) {
-          alert('fr')
+          
           var msg=document.getElementById('st')
           document.getElementById('msg').setAttribute('style','padding:100px')
               msg.setAttribute('style','display:block;width: 700px;height: 46px;top:23px')
@@ -67,8 +67,7 @@
               setTimeout(()=>{
                 msg.setAttribute('style','display:none')
               },1800)
-              alert('compl')
-
+               
               $("#dt").val('')
               $("#n").val('')
               $('#amt').val('')
