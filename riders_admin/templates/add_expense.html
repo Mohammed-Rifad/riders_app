@@ -5,7 +5,7 @@
           <table style="border-spacing: 10px;border-collapse: separate;margin-left: 10px;position: relative;top: 20px;">
             <tr>
               <td>Date : </td>
-              <td><input class="form-control" type="date" placeholder="select date" name="dt" id="dt"></td>
+              <td><input class="form-control" type="date" required placeholder="select date" name="dt" id="dt"></td>
             </tr>
             <tr>
               <td>Name : </td>
@@ -17,7 +17,7 @@
             </tr>
             <tr>
               <td>
-                <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                <button type="button" onclick="validate()" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
               </td>
             </tr>
           </table>
@@ -30,14 +30,21 @@
 
 
             </form>
-{% endblock %}
+
         
   <script>
-    $("#submit").click(function () {
+    
+    function validate(){
+  
       date = $("#dt").val()
       name = $("#n").val()
       amount = $('#amt').val()
-      $.ajaxSetup({
+
+      if(date=='' || name=='' || amount==''){
+        alert('Fill All Data')
+      }
+      else{
+        $.ajaxSetup({
         headers: {
           "X-CSRFToken": '{{csrf_token}}'
         }
@@ -60,8 +67,14 @@
 
         }
       });
-    })
+      }
+    }
+      
+     
+      
+     
   </script>
 </body>
 
 </html>
+{% endblock %}

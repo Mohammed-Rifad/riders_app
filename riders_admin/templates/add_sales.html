@@ -22,21 +22,25 @@
                     </tr>
                     <tr>
                         <td>
-                            <button type="button" id="submit" class="btn btn-gradient-primary me-2">Submit</button>
+                            <button type="button" id="submit" onclick="validate()" class="btn btn-gradient-primary me-2">Submit</button>
                         </td>
                     </tr>
                 </table>
 
 
     <script>
-        $("#submit").click(function(){
-             
+       
+       function validate(){
             dt=$("#dt").val()
             sname=$("#sname").val()
             sp=$('#sp').val()
             cp=$('#cp').val()
-            
-            $.ajaxSetup({
+
+            if(dt=='' ||sname==''|| sp==''||cp==''){
+              alert('Please Fill All Data')
+            }
+            else{
+              $.ajaxSetup({
             headers: {
               "X-CSRFToken":'{{csrf_token}}'
             }})
@@ -63,8 +67,14 @@
               
               
         })
+            }
+       }
+             
+          
+            
+           
 
-      });
+       
     </script>
 
 {% endblock %}

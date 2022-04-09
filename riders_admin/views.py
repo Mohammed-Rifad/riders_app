@@ -1,4 +1,4 @@
- 
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
@@ -18,16 +18,18 @@ def login(request):
         is_authenticated = Admin.objects.filter(
             user_name=name, user_passwd=passwd).exists()
         if is_authenticated:
-            request.session['autherisation_id']='049172'
+            request.session['autherisation_id'] = '049172'
             return redirect('dashboard')
         else:
-            
+
             authenticated = False
     return render(request, 'login.html', {'authenticated': authenticated})
+
 
 @auth_admin
 def dashboard(request):
     return render(request, 'dashboard.html')
+
 
 @auth_admin
 def add_expense(request):
@@ -45,21 +47,23 @@ def add_expense(request):
         return JsonResponse({'status': status})
     return render(request, 'add_expense.html')
 
+
 @auth_admin
 def add_sales(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         sname = request.POST['sname'].lower()
         dt = request.POST['dt']
-        cp = request.POST['cp'] 
-        sp = request.POST['sp'] 
+        cp = request.POST['cp']
+        sp = request.POST['sp']
         obj = datetime.strptime(dt, '%Y-%m-%d')
         new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
-        data=Sales(name=sname,dt=new_date,cost_price=cp,selling_price=sp)
+        data = Sales(name=sname, dt=new_date, cost_price=cp, selling_price=sp)
         data.save()
         status = 'Sales Added'
-        
+
         return JsonResponse({'status': status})
-    return render(request,'add_sales.html')
+    return render(request, 'add_sales.html')
+
 
 @auth_admin
 def view_expense(request):
@@ -80,12 +84,14 @@ def view_expense(request):
             show_total = True
     return render(request, 'view_expenses.html', {'expenses': data_set, 'total': total,
                                                   'show_total': show_total})
+
+
 @auth_admin
 def view_sales(request):
     data_set = Sales.objects.all()
     profit = 0
-    total_sales=0
-    actual_price=0
+    total_sales = 0
+    actual_price = 0
     show_total = False
     if request.method == 'POST':
 
@@ -97,22 +103,26 @@ def view_sales(request):
             data_set = Sales.objects.filter(dt=search_date)
 
             for i in data_set:
-                total_sales+=i.selling_price
-                actual_price+=i.cost_price
-            profit=total_sales-actual_price
+                total_sales += i.selling_price
+                actual_price += i.cost_price
+            profit = total_sales-actual_price
             show_total = True
-            print(total_sales,' ',actual_price)
-    return render(request, 'view_sales.html', {'expenses': data_set,  
-                                                  'profit': profit,'show_total':show_total})
-                                                
-@auth_admin                                          
+            print(total_sales, ' ', actual_price)
+    return render(request, 'view_sales.html', {'expenses': data_set,
+                                               'profit': profit, 'show_total': show_total})
+
+
+@auth_admin
 def Profit(request):
-    data_set=Sales.objects .values( 'dt').annotate(sp=Sum('selling_price'),cp=Sum('cost_price')).order_by()
-    print(data_set)
-    return render(request,'profit.html',{'data_set':data_set})
+    data_set = Sales.objects .values('dt').annotate(
+        sp=Sum('selling_price'), cp=Sum('cost_price')).order_by()
+    # print(data_set)
+    # data=Expense.objects .values( 'dt').annotate(sp=Sum('amount')).order_by()[:2]
+    # print(data)
+    return render(request, 'profit.html', {'data_set': data_set})
 
 
 def logout(request):
-    del request.session['autherisation_id' ]
+    del request.session['autherisation_id']
     request.session.flush()
     return redirect('login')
