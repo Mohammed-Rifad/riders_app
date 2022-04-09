@@ -22,7 +22,7 @@
                         </div>
                         {% endif %}
                     <div class="col-md-4 stretch-card grid-margin" style="position: relative;top:2px">
-
+                        <div style="max-width:100%; overflow:scroll" >
                         <table class="table table-responsive-md table-responsive-sm table-primary table-hover">
 
                             <thead>
@@ -31,6 +31,7 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Amount</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,11 +41,12 @@
                                     <td>{{e.name|title}}</td>
                                     <td>{{e.dt}}</td>
                                     <td>Rs {{e.amount}}</td>
+                                    <td><a href="/del-exp/{{e.id}}" style="color:red">Remove</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-
+                    </div>
 
 
                     

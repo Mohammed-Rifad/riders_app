@@ -42,7 +42,7 @@ def add_expense(request):
         obj = datetime.strptime(dt, '%Y-%m-%d')
         new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
         data = Expense(name=name, dt=new_date, amount=amount)
-        data.save()
+        # data.save()
         status = 'Expense Added'
         return JsonResponse({'status': status})
     return render(request, 'add_expense.html')
@@ -58,7 +58,7 @@ def add_sales(request):
         obj = datetime.strptime(dt, '%Y-%m-%d')
         new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
         data = Sales(name=sname, dt=new_date, cost_price=cp, selling_price=sp)
-        data.save()
+        # data.save()
         status = 'Sales Added'
 
         return JsonResponse({'status': status})
@@ -116,9 +116,13 @@ def view_sales(request):
 def Profit(request):
     data_set = Sales.objects .values('dt').annotate(
         sp=Sum('selling_price'), cp=Sum('cost_price')).order_by()
-    # print(data_set)
-    # data=Expense.objects .values( 'dt').annotate(sp=Sum('amount')).order_by()[:2]
-    # print(data)
+    if request.method=='POST':
+        dt=request.POST['search_date']
+        obj = datetime.strptime(dt, '%Y-%m-%d')
+        search_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
+        data_set = Sales.objects .values('dt').annotate(
+        sp=Sum('selling_price'), cp=Sum('cost_price')).order_by().filter(dt=search_date) 
+        print(data_set) 
     return render(request, 'profit.html', {'data_set': data_set})
 
 
@@ -126,3 +130,14 @@ def logout(request):
     del request.session['autherisation_id']
     request.session.flush()
     return redirect('login')
+
+def del_exp(request,id):
+    data=Expense.objects.get(id=id)
+    data.delete()
+    return redirect('exp_view')
+
+def del_sale(request,id):
+    data=Sales.objects.get(id=id)
+    data.delete()
+    return redirect('sales_view')
+    

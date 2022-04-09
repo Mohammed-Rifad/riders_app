@@ -22,30 +22,34 @@
 {% endif %}
 <div class="col-md-4 stretch-card grid-margin" style="position: relative;top:2px">
 
-    <table class="table table-responsive-md  table-primary table-hover" style="padding:0">
+    <div style="max-width:100%; overflow:scroll" >
+       
+        <table class="table table-responsive-md  table-primary table-hover" style="padding:0">
 
-        <thead>
-            <tr>
-                <th scope="col">S.No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Date</th>
-                <th scope="col">Cost</th>
-                <th scope="col">Sales</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for e in expenses %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{e.name|title}}</td>
-                <td>{{e.dt}}</td>
-                <td>Rs {{e.cost_price}}</td>
-                <td>Rs {{e.selling_price}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Sales</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in expenses %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{e.name|title}}</td>
+                    <td>{{e.dt}}</td>
+                    <td>Rs {{e.cost_price}}</td>
+                    <td>Rs {{e.selling_price}}</td>
+                    <td><a href="/del-sale/{{e.id}}" style="color:red">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div
 
 
 </div>
