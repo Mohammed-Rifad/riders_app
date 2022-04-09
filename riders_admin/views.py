@@ -42,7 +42,7 @@ def add_expense(request):
         obj = datetime.strptime(dt, '%Y-%m-%d')
         new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
         data = Expense(name=name, dt=new_date, amount=amount)
-        # data.save()
+        data.save()
         status = 'Expense Added'
         return JsonResponse({'status': status})
     return render(request, 'add_expense.html')
@@ -58,7 +58,7 @@ def add_sales(request):
         obj = datetime.strptime(dt, '%Y-%m-%d')
         new_date = str(obj.day)+'/'+str(obj.month)+'/'+str(obj.year)
         data = Sales(name=sname, dt=new_date, cost_price=cp, selling_price=sp)
-        # data.save()
+        data.save()
         status = 'Sales Added'
 
         return JsonResponse({'status': status})

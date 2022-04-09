@@ -26,6 +26,12 @@
                         </td>
                     </tr>
                 </table>
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div id="st" class="alert alert-success alert-dismissible fade show"
+                    style="width: 700px;height: 46px;top:23px; display:none">
+                    <strong class="text-center" id="msg" style="padding:100px"></strong>
+      
+                  </div>
 
 
     <script>
@@ -57,12 +63,15 @@
             success:function(response){
               var msg=document.getElementById('st')
               
-              msg.setAttribute('style','display:block;margin-left: 20px;padding-left: 80px;width:100%')
+              msg.setAttribute('style','width: 700px;height: 46px;top:23px;')
               msg.innerHTML=response.status
               setTimeout(()=>{
                 msg.setAttribute('style','display:none')
-              },1500)
-              
+              },1800)
+            $("#dt").val('')
+            $("#sname").val('')
+            $('#sp').val('')
+            $('#cp').val('')
             }
               
               
